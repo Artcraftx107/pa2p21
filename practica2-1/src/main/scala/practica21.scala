@@ -50,6 +50,18 @@ object practica21 {
     }
     zipper(list1, list2, Nil)
   }
+
+  //Ejercicio 5
+  def filtro[A](list: List[A], f: A => Boolean): List[A] = {
+    def auxiliar(resto: List[A], acc: List[A]): List[A] = resto match{
+      case Nil => acc.reverse
+      case h :: t => if(f(h)) auxiliar(t, h :: acc) else auxiliar(t, acc)
+    }
+    auxiliar(list, Nil)
+  }
+
+  //Ejercicio 6
+
  def main(args: Array[String]): Unit = {
    println("Resultado ejercicio 1: ")
    println(factoresPrimos(60)) // Output: List(2, 2, 3, 5)
@@ -69,6 +81,6 @@ object practica21 {
    println(zip(List(10, 20, 30), List('a', 'b'))) // Output: List((10, 'a'), (20, 'b'))
    println("---------------------------------------------------------------------")
    println("Resultado ejercicio 5: ")
-   
+   println(filtro(List(1,2,3,4,5), _ % 2 == 0)) // Output: List(2,4)
  }
 }
