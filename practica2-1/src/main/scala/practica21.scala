@@ -61,6 +61,15 @@ object practica21 {
   }
 
   //Ejercicio 6
+  def map[A, B](list: List[A], f: A => B): List[B] = {
+    def auxiliar(resto: List[A], acc: List[B]): List[B] = resto match{
+      case Nil => acc.reverse
+      case h :: t => auxiliar(t, f(h) :: acc)
+    }
+    auxiliar(list, Nil)
+  }
+
+  //Ejercicio 7
 
  def main(args: Array[String]): Unit = {
    println("Resultado ejercicio 1: ")
@@ -82,5 +91,8 @@ object practica21 {
    println("---------------------------------------------------------------------")
    println("Resultado ejercicio 5: ")
    println(filtro(List(1,2,3,4,5), _ % 2 == 0)) // Output: List(2,4)
+   println("---------------------------------------------------------------------")
+   println("Resultado ejercicio 6: ")
+   println(map(List(1,2,3,4,5), _ * 2)) // Output: List(2,4,6,8,10)
  }
 }
