@@ -81,6 +81,18 @@ object practica21 {
     auxiliar(list, Map.empty)
   }
 
+  //Ejercicio 8
+  def reducir[A](list: List[A], f: (A, A)=>A): A = {
+    require(list.nonEmpty, "La lista no puede estar vacia")
+
+    def auxiliar(resto: List[A], acc: A): A = resto match{
+      case Nil => acc
+      case h :: t => auxiliar(t, f(acc, h))
+    }
+    auxiliar(list.tail, list.head)
+  }
+
+
  def main(args: Array[String]): Unit = {
    println("Resultado ejercicio 1: ")
    println(factoresPrimos(60)) // Output: List(2, 2, 3, 5)
@@ -107,5 +119,8 @@ object practica21 {
    println("---------------------------------------------------------------------")
    println("Resultado ejercicio 7: ")
    println(group(List(1,2,3,4,5), _ % 2 == 0)) // Output: Map(false -> List(1, 3, 5), true -> List(2, 4))
+   println("---------------------------------------------------------------------")
+   println("Resultado ejercicio 8: ")
+   println(reducir(List(1,2,3,4,5), _ + _)) // Output: 15
  }
 }
