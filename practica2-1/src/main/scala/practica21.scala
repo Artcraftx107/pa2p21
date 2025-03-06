@@ -70,6 +70,16 @@ object practica21 {
   }
 
   //Ejercicio 7
+  def group[A, B](list: List[A], f: A => B): Map[B, List[A]] = {
+    def auxiliar(resto: List[A], acc: Map[B, List[A]]): Map[B, List[A]] = resto match{
+      case Nil => acc
+      case h :: t =>
+        val key = f(h)
+        val listaActualizada = acc.getOrElse(key, Nil) :+ h
+        auxiliar(t, acc + (key -> listaActualizada))
+    }
+    auxiliar(list, Map.empty)
+  }
 
  def main(args: Array[String]): Unit = {
    println("Resultado ejercicio 1: ")
@@ -94,5 +104,8 @@ object practica21 {
    println("---------------------------------------------------------------------")
    println("Resultado ejercicio 6: ")
    println(map(List(1,2,3,4,5), _ * 2)) // Output: List(2,4,6,8,10)
+   println("---------------------------------------------------------------------")
+   println("Resultado ejercicio 7: ")
+   println(group(List(1,2,3,4,5), _ % 2 == 0)) // Output: Map(false -> List(1, 3, 5), true -> List(2, 4))
  }
 }
