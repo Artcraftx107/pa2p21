@@ -40,7 +40,7 @@ object practica21 {
       case(a, b) :: tail => unzipper(tail, a :: accA, b :: accB)
     }
     unzipper(list, Nil, Nil)
-  }
+  } //Fin ejercicio 3
 
   //Ejercicio 4
   def zip[A, B](list1: List[A], list2: List[B]): List[(A, B)] ={
@@ -49,7 +49,7 @@ object practica21 {
       case (h1 :: t1, h2 :: t2)=>zipper(t1, t2, (h1, h2) :: acc)
     }
     zipper(list1, list2, Nil)
-  }
+  } //Fin ejercicio 4
 
   //Ejercicio 5
   def filtro[A](list: List[A], f: A => Boolean): List[A] = {
@@ -58,7 +58,7 @@ object practica21 {
       case h :: t => if(f(h)) auxiliar(t, h :: acc) else auxiliar(t, acc)
     }
     auxiliar(list, Nil)
-  }
+  } //Fin ejercicio 5
 
   //Ejercicio 6
   def map[A, B](list: List[A], f: A => B): List[B] = {
@@ -67,7 +67,7 @@ object practica21 {
       case h :: t => auxiliar(t, f(h) :: acc)
     }
     auxiliar(list, Nil)
-  }
+  } //Fin ejercicio 6
 
   //Ejercicio 7
   def group[A, B](list: List[A], f: A => B): Map[B, List[A]] = {
@@ -79,7 +79,7 @@ object practica21 {
         auxiliar(t, acc + (key -> listaActualizada))
     }
     auxiliar(list, Map.empty)
-  }
+  } //Fin ejercicio 7
 
   //Ejercicio 8
   def reducir[A](list: List[A], f: (A, A)=>A): A = {
@@ -90,9 +90,23 @@ object practica21 {
       case h :: t => auxiliar(t, f(acc, h))
     }
     auxiliar(list.tail, list.head)
-  }
+  } //Fin ejercicio 8
 
+  //Ejercicio 9
+  def subsets(set: Set[Int]): Set[Set[Int]] = {
+    def helper(remaining: List[Int], acc: List[Set[Int]]): List[Set[Int]] = {
+      if (remaining.isEmpty) acc
+      else {
+        val elem = remaining.head
+        val newAcc = acc ++ acc.map(_ + elem)
+        helper(remaining.tail, newAcc)
+      }
+    }
+    helper(set.toList, List(Set())).toSet
+  } //Fin ejercicio 9
 
+  //Ejercicio 10
+  
  def main(args: Array[String]): Unit = {
    println("Resultado ejercicio 1: ")
    println(factoresPrimos(60)) // Output: List(2, 2, 3, 5)
@@ -122,5 +136,13 @@ object practica21 {
    println("---------------------------------------------------------------------")
    println("Resultado ejercicio 8: ")
    println(reducir(List(1,2,3,4,5), _ + _)) // Output: 15
+   println("---------------------------------------------------------------------")
+   println("Resultado ejercicio 9: ")
+   println(subsets(Set())) // Output: Set(Set())
+   println(subsets(Set(1))) // Output: Set(Set(), Set(1))
+   println(subsets(Set(1, 2))) // Output: Set(Set(), Set(1), Set(2), Set(1,2))
+   println(subsets(Set(1, 2, 3)))
+   println("---------------------------------------------------------------------")
+   println("Resultado ejercicio 10: ")
  }
 }
